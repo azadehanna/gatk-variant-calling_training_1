@@ -181,6 +181,35 @@ cd /Users/azadehnikouee/Desktop/GATK_germline_variant_calling/
 multiqc . -o multiqc_report
 
 
+## - Ti/Tv and Substitution Analysis with bcftools
+
+# Ensure output directory exists
+mkdir -p ${results}/vcf_plots
+
+# Generate variant statistics
+bcftools stats ${results}/raw_snps.vcf > ${results}/vcf_stats.txt
+
+# Generate plots (PNG and LaTeX)
+plot-vcfstats ${results}/vcf_stats.txt -p ${results}/vcf_plots/
+
+# Optional: convert LaTeX to PDF (only works if tectonic or pdflatex is installed)
+if command -v tectonic &> /dev/null
+then
+  echo "Generating PDF report with tectonic..."
+  cd ${results}/vcf_plots
+  tectonic summary.tex
+  cd -
+else
+  echo "NOTE: LaTeX not installed. Skipping PDF creation."
+fi
+
+echo "Ti/Tv ratio analysis and substitution plots completed."
+
+
+
+
+
+
 
 
 
