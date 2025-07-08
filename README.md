@@ -52,3 +52,32 @@ If you use this pipeline, please cite:
 - 1000 Genomes Project: https://www.internationalgenome.org/
 - ENA Sample SRR070802: https://www.ebi.ac.uk/ena/browser/view/SRR070802
 
+##===============================
+Additional Analysis: Ti/Tv Ratio and Substitution Patterns
+This step uses `bcftools` and `plot-vcfstats` to evaluate the quality of variant calls by calculating the Transition/Transversion (Ti/Tv) ratio and visualizing base substitution patterns.
+
+## Requirements:
+- `bcftools`
+- `plot-vcfstats` (included with bcftools)
+- (Optional) `tectonic` or `pdflatex` for generating PDF reports from LaTeX
+
+## What It Does:
+1. Runs `bcftools stats` on the filtered SNP VCF (`raw_snps.vcf`)
+2. Generates plots such as:
+   - Ti/Tv ratio vs. quality
+   - Base substitution types
+   - Depth distribution
+3. (Optional) Converts LaTeX summary (`summary.tex`) into a PDF if `tectonic` is installed
+
+## Output:
+- “result/vcf_stats.txt”: bcftools stats output
+- “result/vcf_plots/*.png”: Visual summary of variant quality
+- “result/vcf_plots/summary.tex”: LaTeX version of report
+- “result/vcf_plots/summary.pdf”: Optional PDF (if LaTeX is installed)
+
+This analysis provides a useful QC check. A Ti/Tv ratio around 2.0–3.0 indicates good-quality SNP calling for human data.  
+
+
+
+
+
